@@ -1,0 +1,22 @@
+{
+    "name": "pxt-kn-gamezip",
+    "version": "0.0.0",
+    "description": "A micro:bit (makecode) library with game features for the Kitronik :GAME ZIP 64",
+    "dependencies": {
+        "core": "*",
+        "radio": "*",
+        "microphone": "*"
+    },
+    "files": [
+        "README.md",
+        "kngamezip.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "public": true,
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "blocksprj"
+}
