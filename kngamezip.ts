@@ -488,6 +488,38 @@ namespace kngamezip {
         }
 
         /**
+         * Reports true if after a move, sprite has the same position as specified sprite (ignores z-axis)
+         * @param this the sprite to check (about to move)
+         * @param other the other sprite to check (the stationary)
+         */
+        //% weight=20 help=game/is-about-to-hit
+        //% group=Sprite
+        //% blockId=kn_game_sprite_about_to_hit_sprite block="is %sprite|about to hit %other" blockGap=8
+        public isAboutToHit(other: LedSprite): boolean {
+            if (this.is_sprite) {
+                let x = this.x;
+                let y = this.y;
+                switch (this.direction) {
+                    case kngamezip.Cardinal.North: y--; break;
+                    case kngamezip.Cardinal.East:  x++; break;
+                    case kngamezip.Cardinal.South: y++; break;
+                    case kngamezip.Cardinal.West:  x--; break;
+                }
+                return this.enabled && other.enabled && x == other.x && y == other.y;
+            } else {
+                return other.isAboutToHit(this);
+            } else {
+                for (let child of this.children) {
+                    if (child.isAboutToHit(other)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+        }
+
+        /**
          * Reports true if sprite is touching an edge
          * @param this the sprite to check for an edge contact
          * @param edge the edge to look for, eg: Any
