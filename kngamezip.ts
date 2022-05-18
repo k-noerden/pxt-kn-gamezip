@@ -497,17 +497,19 @@ namespace kngamezip {
         //% blockId=kn_game_sprite_about_to_hit_sprite block="is %sprite|about to hit %other" blockGap=8
         public isAboutToHit(other: LedSprite): boolean {
             if (this.is_sprite) {
-                let x = this.x;
-                let y = this.y;
-                switch (this.direction) {
-                    case kngamezip.Cardinal.North: y--; break;
-                    case kngamezip.Cardinal.East:  x++; break;
-                    case kngamezip.Cardinal.South: y++; break;
-                    case kngamezip.Cardinal.West:  x--; break;
+                if(other.is_sprite) {
+                    let x = this.x;
+                    let y = this.y;
+                    switch (this.direction) {
+                        case kngamezip.Cardinal.North: y--; break;
+                        case kngamezip.Cardinal.East:  x++; break;
+                        case kngamezip.Cardinal.South: y++; break;
+                        case kngamezip.Cardinal.West:  x--; break;
+                    }
+                    return this.enabled && other.enabled && x == other.x && y == other.y;
+                } else {
+                    return other.isAboutToHit(this);
                 }
-                return this.enabled && other.enabled && x == other.x && y == other.y;
-            } else {
-                return other.isAboutToHit(this);
             } else {
                 for (let child of this.children) {
                     if (child.isAboutToHit(other)) {
