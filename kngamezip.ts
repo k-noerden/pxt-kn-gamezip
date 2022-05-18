@@ -50,14 +50,24 @@ namespace kngamezip {
     export enum Edge {
         //% block=any
         Any,
-        //% block=top
-        Top,
+        //% block=North
+        North,
+        //% block=east
+        East,
+        //% block=south
+        South,
+        //% block=west
+        West,
+
+        //% block=front
+        Front,
         //% block=right
         Right,
-        //% block=bottom
-        Bottom,
+        //% block=back
+        Back,
         //% block=left
         Left,
+
     }
 
     export enum SpriteProperty {
@@ -491,16 +501,44 @@ namespace kngamezip {
                     return false;
                 }
                 switch (edge) {
-                    case kngamezip.Edge.Top:
+                    case kngamezip.Edge.North:
                         return this.y == 0;
-                    case kngamezip.Edge.Right:
+                    case kngamezip.Edge.East:
                         return this.x == 7;
-                    case kngamezip.Edge.Bottom:
+                    case kngamezip.Edge.South:
                         return this.y == 7;
-                    case kngamezip.Edge.Left:
+                    case kngamezip.Edge.West:
                         return this.x == 0;
                     case kngamezip.Edge.Any:
                         return this.y == 0 || this.x == 7 || this.y == 7 || this.x == 0;
+                    case kngamezip.Edge.Front:
+                        switch (this.direction) {
+                            case kngamezip.Cardinal.North: return this.y == 0;
+                            case kngamezip.Cardinal.East:  return this.x == 7;
+                            case kngamezip.Cardinal.South: return this.y == 7;
+                            case kngamezip.Cardinal.West:  return this.x == 0;
+                        }
+                    case kngamezip.Edge.Right:
+                        switch (this.direction) {
+                            case kngamezip.Cardinal.North: return this.x == 7;
+                            case kngamezip.Cardinal.East:  return this.y == 7;
+                            case kngamezip.Cardinal.South: return this.x == 0;
+                            case kngamezip.Cardinal.West:  return this.y == 0;
+                        }
+                    case kngamezip.Edge.Back:
+                        switch (this.direction) {
+                            case kngamezip.Cardinal.North: return this.y == 7;
+                            case kngamezip.Cardinal.East:  return this.x == 0;
+                            case kngamezip.Cardinal.South: return this.y == 0;
+                            case kngamezip.Cardinal.West:  return this.x == 7;
+                        }
+                    case kngamezip.Edge.Left:
+                        switch (this.direction) {
+                            case kngamezip.Cardinal.North: return this.x == 0;
+                            case kngamezip.Cardinal.East:  return this.y == 0;
+                            case kngamezip.Cardinal.South: return this.x == 7;
+                            case kngamezip.Cardinal.West:  return this.y == 7;
+                        }
                     default:
                         return false;
                 }
