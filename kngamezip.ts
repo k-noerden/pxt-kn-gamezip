@@ -508,8 +508,13 @@ namespace kngamezip {
                     }
                     return this.enabled && other.enabled && x == other.x && y == other.y;
                 } else {
-                    return other.isAboutToHit(this);
-                }
+                    for (let child of other.children) {
+                        if (this.isAboutToHit(child)) {
+                            return true;
+                        }
+                    }
+                    return false;
+                 }
             } else {
                 for (let child of this.children) {
                     if (child.isAboutToHit(other)) {
@@ -518,7 +523,6 @@ namespace kngamezip {
                 }
                 return false;
             }
-
         }
 
         /**
