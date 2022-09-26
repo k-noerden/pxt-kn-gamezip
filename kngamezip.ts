@@ -81,6 +81,13 @@ namespace kngamezip {
         Direction,
         //% block=color
         Color,
+        //% block="Custom A"
+        CustomA,
+        //% block="Custom B"
+        CustomB,
+        //% block="Custom C"
+        CustomC,
+
     }
 
     export enum Extract {
@@ -180,6 +187,10 @@ namespace kngamezip {
         private color: number;
         private enabled: boolean;
 
+        private customA: number;
+        private customB: number;
+        private customC: number;
+
         // GROUP ATTRIBUTES:
         public children: LedSprite[];
 
@@ -195,6 +206,9 @@ namespace kngamezip {
                 this.direction = Cardinal.East;
                 this.color = packRGB(50, 0, 0);
                 this.enabled = true;
+                this.customA = 0;
+                this.customB = 0;
+                this.customC = 0;
                 _should_sort = true;
                 _sprites.push(this);
 
@@ -386,6 +400,15 @@ namespace kngamezip {
                         this.color = value >> 0;
                         _should_render = true;
                         break;
+                    case kngamezip.SpriteProperty.customA:
+                        this.customA = value;
+                        break;
+                    case kngamezip.SpriteProperty.customB:
+                        this.customB = value;
+                        break;
+                    case kngamezip.SpriteProperty.customC:
+                        this.customC = value;
+                        break;
                 }
             } else {
                 for (let child of this.children) {
@@ -425,6 +448,15 @@ namespace kngamezip {
                         // this.color = blend(this.color, value, 0.5);
                         _should_render = true;
                         break;
+                    case kngamezip.SpriteProperty.customA:
+                        this.customA += value;
+                        break;
+                    case kngamezip.SpriteProperty.customB:
+                        this.customB += value;
+                        break;
+                    case kngamezip.SpriteProperty.customC:
+                        this.customC += value;
+                        break;
                 }
             } else {
                 for (let child of this.children) {
@@ -453,6 +485,12 @@ namespace kngamezip {
                         return this.direction;
                     case kngamezip.SpriteProperty.Color:
                         return this.color;
+                    case kngamezip.SpriteProperty.customA:
+                        return this.customA;
+                    case kngamezip.SpriteProperty.customB:
+                        return this.customB;
+                    case kngamezip.SpriteProperty.customC:
+                        return this.customC;
                 }
                 return -1;
             } else {
