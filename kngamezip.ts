@@ -400,13 +400,13 @@ namespace kngamezip {
                         this.color = value >> 0;
                         _should_render = true;
                         break;
-                    case kngamezip.SpriteProperty.customA:
+                    case kngamezip.SpriteProperty.CustomA:
                         this.customA = value;
                         break;
-                    case kngamezip.SpriteProperty.customB:
+                    case kngamezip.SpriteProperty.CustomB:
                         this.customB = value;
                         break;
-                    case kngamezip.SpriteProperty.customC:
+                    case kngamezip.SpriteProperty.CustomC:
                         this.customC = value;
                         break;
                 }
@@ -448,13 +448,13 @@ namespace kngamezip {
                         // this.color = blend(this.color, value, 0.5);
                         _should_render = true;
                         break;
-                    case kngamezip.SpriteProperty.customA:
+                    case kngamezip.SpriteProperty.CustomA:
                         this.customA += value;
                         break;
-                    case kngamezip.SpriteProperty.customB:
+                    case kngamezip.SpriteProperty.CustomB:
                         this.customB += value;
                         break;
-                    case kngamezip.SpriteProperty.customC:
+                    case kngamezip.SpriteProperty.CustomC:
                         this.customC += value;
                         break;
                 }
@@ -485,11 +485,11 @@ namespace kngamezip {
                         return this.direction;
                     case kngamezip.SpriteProperty.Color:
                         return this.color;
-                    case kngamezip.SpriteProperty.customA:
+                    case kngamezip.SpriteProperty.CustomA:
                         return this.customA;
-                    case kngamezip.SpriteProperty.customB:
+                    case kngamezip.SpriteProperty.CustomB:
                         return this.customB;
-                    case kngamezip.SpriteProperty.customC:
+                    case kngamezip.SpriteProperty.CustomC:
                         return this.customC;
                 }
                 return -1;
