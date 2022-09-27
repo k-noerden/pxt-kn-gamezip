@@ -806,15 +806,20 @@ namespace kngamezip {
             }
             let copy = this.children.slice(); // Loop through a copy, in case handler modifies the group
             for (let child of copy) {
-                // The child could be deleted by the handler
-                if (child.enabled) {
-                    handler(child);
+                if (child.is_sprite) {
+                    // The child could be deleted by the handler
+                    if (child.enabled) {
+                        handler(child);
+                    }
+                } else {
+                    child.loop_through(handler);
                 }
             }
         }
     }
     /**
-     * Loop through a sprite group and execute a block for each child
+     * Loop through a sprite group and execute a block for each sprite.
+     * If the sprite group contains other sprite groups, the function recurses and handles each actual sprite.
      * @param this the sprite group to loop over
      * @param sprite the child sprite for use in the block
      */
