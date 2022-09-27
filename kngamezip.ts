@@ -81,11 +81,11 @@ namespace kngamezip {
         Direction,
         //% block=color
         Color,
-        //% block="Custom A"
+        //% block="custom A"
         CustomA,
-        //% block="Custom B"
+        //% block="custom B"
         CustomB,
-        //% block="Custom C"
+        //% block="custom C"
         CustomC,
 
     }
