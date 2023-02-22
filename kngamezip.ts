@@ -147,6 +147,7 @@ namespace kngamezip {
     //% parts="ledmatrix"
     export function createSprite(x: number, y: number): LedSprite {
         init()
+        _should_render = true;
         return new LedSprite(true, x, y);
     }
 
