@@ -512,7 +512,7 @@ namespace kngamezip {
             // TODO: Name this something more appropriate, like onTopOf, isTouchingEdge is next to, this is not!?!
             if (this.is_sprite) {
                 if (other.is_sprite) {
-                    return this.enabled && other.enabled && this.x == other.x && this.y == other.y;
+                    return this.enabled && other.enabled && this.x == other.x && this.y == other.y && this !== other;
                 } else {
                     return other.isTouching(this);
                 }
