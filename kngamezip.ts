@@ -512,7 +512,10 @@ namespace kngamezip {
             // TODO: Name this something more appropriate, like onTopOf, isTouchingEdge is next to, this is not!?!
             if (this.is_sprite) {
                 if (other.is_sprite) {
-                    return this.enabled && other.enabled && this.x == other.x && this.y == other.y && this !== other;
+                    return (this.enabled && other.enabled &&
+                        Math.trunc(this.x) == Math.trunc(other.x) &&
+                        Math.trunc(this.y) == Math.trunc(other.y) &&
+                        this !== other);
                 } else {
                     return other.isTouching(this);
                 }
@@ -537,15 +540,15 @@ namespace kngamezip {
         public isAboutToHit(other: LedSprite): boolean {
             if (this.is_sprite) {
                 if(other.is_sprite) {
-                    let x = this.x;
-                    let y = this.y;
+                    let x = Math.trunc(this.x);
+                    let y = Math.trunc(this.y);
                     switch (this.direction) {
                         case kngamezip.Cardinal.North: y--; break;
                         case kngamezip.Cardinal.East:  x++; break;
                         case kngamezip.Cardinal.South: y++; break;
                         case kngamezip.Cardinal.West:  x--; break;
                     }
-                    return this.enabled && other.enabled && x == other.x && y == other.y;
+                    return this.enabled && other.enabled && x == Math.trunc(other.x) && y == Math.trunc(other.y);
                 } else {
                     for (let child of other.children) {
                         if (this.isAboutToHit(child)) {
