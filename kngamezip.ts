@@ -922,6 +922,7 @@ namespace kngamezip {
     //% parts="ledmatrix"
     export function gameOver(): void {
         if (!_isGameover) {
+            render();
             _isGameover = true;
             led.stopAnimation();
             led.setBrightness(255);
