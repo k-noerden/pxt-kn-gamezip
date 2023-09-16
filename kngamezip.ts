@@ -1096,6 +1096,7 @@ namespace kngamezip {
         for (let xy = 0; xy < 64; xy++) {
             _background[xy] = color;
         }
+        _should_render = true;
     }
 
     /**
@@ -1108,8 +1109,12 @@ namespace kngamezip {
     //% group=Background
     //% block="Background set %x %y to %value"
     export function backgroundSet(x: number, y: number, color: number): void {
+        if (x < 0 || x > 7 || y < 0 || y > 7) {
+            return;
+        }
         let xy = y * 8 + x;
         _background[xy] = color;
+        _should_render = true;
     }
 
     /**
@@ -1142,12 +1147,42 @@ namespace kngamezip {
             yMin = y2;
             yMax = y1;
         }
+
+        if (xMin < 0) {
+            if (xMax >= 0) {
+                xMin = 0;
+            } else {
+                return;
+            }
+        }
+        if (xMax > 7) {
+            if (xMin <= 7) {
+                xMax = 7;
+            } else {
+                return;
+            }
+        }
+        if (yMin < 0) {
+            if (yMax >= 0) {
+                yMin = 0;
+            } else {
+                return;
+            }
+        }
+        if (yMax > 7) {
+            if (yMin <= 7) {
+                yMax = 7;
+            } else {
+                return;
+            }
+        }
         for (let y = yMin; y <= yMax; y++) {
             for (let x = xMin; x <= xMax; x++) {
                 let xy = y * 8 + x;
                 _background[xy] = color;
             }
         }
+        _should_render = true;
     }
 
     // /**
