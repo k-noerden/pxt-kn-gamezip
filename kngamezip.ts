@@ -18,6 +18,7 @@ namespace kngamezip {
     let _sprites: LedSprite[];
     let _should_sort: boolean = false;
     let _should_render: boolean = true; // TODO: implement this as a way to render after any change has been made but throught a central "thread"
+    let _background: number[];
 
     let _score: number = 0;
     let _life: number = 3;
@@ -105,6 +106,17 @@ namespace kngamezip {
         _display = GAME_ZIP64.createZIP64Display();
         _display.setBrightness(50);
         _sprites = <LedSprite[]>[];
+        _background = [
+            0, 0, 0, 0,  0, 0, 0, 0,
+            0, 0, 0, 0,  0, 0, 0, 0,
+            0, 0, 0, 0,  0, 0, 0, 0,
+            0, 0, 0, 0,  0, 0, 0, 0,
+
+            0, 0, 0, 0,  0, 0, 0, 0,
+            0, 0, 0, 0,  0, 0, 0, 0,
+            0, 0, 0, 0,  0, 0, 0, 0,
+            0, 0, 0, 0,  0, 0, 0, 0,
+        ];
 
         pins.analogSetPitchPin(AnalogPin.P2); // Enable sound on Zip
         basic.pause(10);
@@ -129,6 +141,9 @@ namespace kngamezip {
             _should_sort = false;
         }
         _display.clear()
+        for (let xy = 0; xy < 64; xy++) {
+            _display.setPixelColorAt(xy, _background[xy]);
+        }
         for (let i = 0; i < _sprites.length; i++) {
             _sprites[i]._render();
         }
@@ -1069,6 +1084,71 @@ namespace kngamezip {
         _display.setBrightness(brightness);
     }
 
+
+    /**
+     * Fill the background with a color
+     * @param color The color to fill
+     */
+    //% weight=10 blockId=kn_game_background_fill blockGap=8
+    //% group=Background
+    //% block="Background fill %value"
+    export function backgroundFill(color: number): void {
+        for (let xy = 0; xy < 64; xy++) {
+            _background[xy] = color;
+        }
+    }
+
+    /**
+     * Set a background pixel to a color
+     * @param x The x coordinate
+     * @param y The y coordinate
+     * @param color The color to fill
+     */
+    //% weight=10 blockId=kn_game_background_set blockGap=8
+    //% group=Background
+    //% block="Background set %x %y to %value"
+    export function backgroundSet(x: number, y: number, color: number): void {
+        let xy = y * 8 + x;
+        _background[xy] = color;
+    }
+
+    /**
+     * Fill a rectangle in the background to a color
+     * @param x1 The x coordinate of the first corner
+     * @param y1 The y coordinate of the first corner
+     * @param x2 The x coordinate of the second corner
+     * @param y2 The y coordinate of the second corner
+     * @param color The color to fill
+     */
+    //% weight=10 blockId=kn_game_background_rect blockGap=8
+    //% group=Background
+    //% block="Background rectangle |x1: %x1 y1: %y1| x2: %x2 y2: %y2|color: %value"
+    export function backgroundRect(x1: number, y1: number, x2: number, y2: number, color: number): void {
+        let xMin;
+        let xMax;
+        let yMin;
+        let yMax;
+        if (x1 < x2) {
+            xMin = x1;
+            xMax = x2;
+        } else {
+            xMin = x2;
+            xMax = x1;
+        }
+        if (y1 < y2) {
+            yMin = y1;
+            yMax = y2;
+        } else {
+            yMin = y2;
+            yMax = y1;
+        }
+        for (let y = yMin; y <= yMax; y++) {
+            for (let x = xMin; x <= xMax; x++) {
+                let xy = y * 8 + x;
+                _background[xy] = color;
+            }
+        }
+    }
 
     // /**
     //  * Registers code to run when the radio receives a number.
