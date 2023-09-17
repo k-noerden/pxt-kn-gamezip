@@ -155,15 +155,17 @@ namespace kngamezip {
      * Creates a new LED sprite pointing to the right.
      * @param x sprite horizontal coordinate, eg: 2
      * @param y sprite vertical coordinate, eg: 2
+     * @param color sprite color
      */
     //% weight=60 blockGap=8 help=game/create-sprite
     //% group=Sprite
-    //% blockId=kn_game_create_sprite block="create sprite at|x: %x|y: %y"
+    //% blockId=kn_game_create_sprite block="create sprite at|x: %x|y: %y||color: %color"
     //% parts="ledmatrix"
-    export function createSprite(x: number, y: number): LedSprite {
+    export function createSprite(x: number, y: number, color: number = 0x320000): LedSprite {
         init()
         _should_render = true;
-        return new LedSprite(true, x, y);
+        return new LedSprite(true, x, y, color);
+
     }
 
     /**
@@ -174,7 +176,7 @@ namespace kngamezip {
     //% blockId=kn_game_create_sprite_group block="create sprite group"
     export function createSpriteGroup(): LedSprite {
         init();
-        return new LedSprite(false, 0, 0);
+        return new LedSprite(false, 0, 0, 0);
     }
 
     /**
@@ -211,7 +213,7 @@ namespace kngamezip {
         public children: LedSprite[];
 
 
-        constructor(is_sprite: boolean, x: number, y: number) {
+        constructor(is_sprite: boolean, x: number, y: number, color: number) {
             this.is_sprite = is_sprite;
             this.group = null;
 
@@ -220,7 +222,8 @@ namespace kngamezip {
                 this.y = Math.clamp(0, 7, y);
                 this.z = 0;
                 this.direction = Cardinal.East;
-                this.color = packRGB(50, 0, 0);
+                // this.color = packRGB(50, 0, 0);
+                this.color = color;
                 this.enabled = true;
                 this.customA = 0;
                 this.customB = 0;
