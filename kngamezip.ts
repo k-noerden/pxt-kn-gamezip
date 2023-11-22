@@ -912,7 +912,7 @@ namespace kngamezip {
     //% group=Game
     //% blockId=kn_game_set_life block="set life %value" blockGap=8
     export function setLife(lives: number): void {
-        _life += lives;
+        _life = lives;
         if (_life <= 0) {
             _life = 0
             gameOver();
