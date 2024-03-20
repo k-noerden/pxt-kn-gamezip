@@ -822,6 +822,22 @@ namespace kngamezip {
             }
         }
 
+         /**
+         * Get the number of children in a spritegroup
+         * @param this the group to look in
+         */
+        //% weight=58 blockGap=8
+        //% group="Sprite group"
+        //% blockId=kn_game_count_children block="%group| count children"
+        public count_children(): number {
+            if (this.is_sprite) {
+                control.panic(USER_ERROR);
+                return -1;
+            } else {
+                return this.children.length;
+            }
+        }
+
         public loop_through(handler: (child: LedSprite) => void): void {
             if (this.is_sprite) {
                 control.panic(USER_ERROR);
